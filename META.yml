@@ -19,7 +19,7 @@ no_index:
     - inc
     - t
 requires:
-  Crypt::SSLeay: 0
+  LWP::Protocol::https: 0
   LWP::UserAgent: 0
   URI: 0
   perl: 5.8.0

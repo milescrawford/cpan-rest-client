@@ -79,7 +79,6 @@ our ($VERSION) = ('$Rev: 272 $' =~ /(\d+)/);
 use URI;
 use LWP::UserAgent;
 use Carp qw(croak carp);
-use Crypt::SSLeay;
 
 =head2 Construction and setup
 
@@ -329,10 +328,6 @@ sub request {
 
     $url = $self->_prepareURL($url);
 
-    #to ensure we use our desired SSL lib
-    my $tmp_socket_ssl_version = $IO::Socket::SSL::VERSION;
-    $IO::Socket::SSL::VERSION = undef;
-
     my $ua = $self->getUseragent();
     if(defined $self->getTimeout()){
         $ua->timeout($self->getTimeout);
@@ -386,7 +381,6 @@ sub request {
     }
 
     my $res = $self->getFollow ? $ua->request($req) : $ua->simple_request($req);
-    $IO::Socket::SSL::VERSION = $tmp_socket_ssl_version;
 
     $self->{_res} = $res;
 
