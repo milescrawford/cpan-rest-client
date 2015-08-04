@@ -119,7 +119,31 @@ SKIP: {
         ok(scalar($client->responseHeaders()), 'Header names available');
         ok( $client->responseHeader('Client-Response-Num'), 'Can pull a header');
 
+        my $fn = "content_file_test";
+        $client->setContentFile( $fn );
+        $path =  "/ok/" . time() . "/";
+        $client->GET( $path );
+        open( my $fh, "<", $fn );
 
+        my $test;
+        while( my $data = <$fh> ) {
+            $test .= $data;
+        }
+
+        is( $test, $path, "GET into ContentFile (filename) works" );
+        `rm $fn`;
+
+        $test = "";
+
+        my $callback = sub {
+            my ( $data, $resp, $prot ) = @_;
+            $test .= $data;
+        };
+        $client->setContentFile( $callback );
+        $client->GET( $path );
+        is( $test, $path, "GET into ContentFile (callback) works" );
+
+        $client->setContentFile( undef );
     };
 
     warn "Tests died: $@" if $@;
