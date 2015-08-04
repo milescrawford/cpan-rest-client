@@ -366,10 +366,12 @@ sub request {
 
         $ua->ssl_opts(SSL_cert_file => $self->getCert);
         $ua->ssl_opts(SSL_key_file => $self->getKey); 
-        if(my $ca = $self->getCa){
-            croak "REST::Client exception: Cannot read CA file" unless -f $ca;
-            $ua->ssl_opts(SSL_ca_file => $ca);
-        }
+    }
+   
+    #prime LWP with CA file if we have one     
+    if(my $ca = $self->getCa){
+        croak "REST::Client exception: Cannot read CA file" unless -f $ca;
+        $ua->ssl_opts(SSL_ca_file => $ca);
     }
 
     #prime LWP with PKCS12 certificate if we have one
