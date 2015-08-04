@@ -56,6 +56,13 @@ REST::Client - A simple client for interacting with RESTful http/https resources
  #It is possible to access the L<LWP::UserAgent> object REST::Client is using to
  #make requests, and set advanced options on it, for instance:
  $client->getUseragent()->proxy(['http'], 'http://proxy.example.com/');
+  
+ # request responses can be written directly to a file 
+ $client->setContentFile( "FileName" );
+
+ # or call back method
+ $client->setContentFile( \&callback_method );
+ # see LWP::UserAgent for how to define callback methods
 
 =head1 DESCRIPTION
 
@@ -380,7 +387,9 @@ sub request {
         }
     }
 
-    my $res = $self->getFollow ? $ua->request($req) : $ua->simple_request($req);
+    my $res = $self->getFollow ? 
+        $ua->request( $req, $self->getContentFile ) : 
+        $ua->simple_request( $req, $self->getContentFile );
 
     $self->{_res} = $res;
 
@@ -496,7 +505,7 @@ sub _buildAccessors {
 
     return if $self->can('setHost');
 
-    my @attributes = qw(Host Key Cert Ca Timeout Follow Useragent Pkcs12 Pkcs12password);
+    my @attributes = qw(Host Key Cert Ca Timeout Follow Useragent Pkcs12 Pkcs12password ContentFile);
 
     for my $attribute (@attributes){
         my $set_method = "
