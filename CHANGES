@@ -1,3 +1,13 @@
+273
+* Add ContentFile that will allow writing responses directly to file or
+  process using a call back through LWP::UserAgent
+
+* Seperated CA file from SSL cert and SSL key directives to allow for
+  hostname verificaiton and ca file specification independently.
+  Thanks David Imbs.
+
+* No longer depends on Crypt::SSLeay
+ 
 272
 * Fix bug that didn't allow false PUT content. Thanks Thomas Hörndlein!
 
