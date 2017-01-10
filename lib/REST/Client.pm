@@ -102,8 +102,8 @@ The config flags are:
 
 =item host
 
-A default host that will be prepended to all requests.  Allows you to just
-specify the path when making requests.
+A default host that will be prepended to all requests using relative URLs.
+Allows you to just specify the path when making requests.
 
 The default is undef - you must include the host in your requests.
 
@@ -475,6 +475,9 @@ sub responseXpath {
 sub _prepareURL {
     my $self = shift;
     my $url = shift;
+
+    # Do not prepend default host to absolute URLs.
+    return $url if $url =~ /^https?:/;
 
     my $host = $self->getHost;
     if($host){
