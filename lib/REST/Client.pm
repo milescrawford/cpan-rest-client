@@ -325,7 +325,6 @@ sub request {
 
 
     #error check
-    croak "REST::Client exception: First argument to request must be one of GET, PATCH, PUT, POST, DELETE, OPTIONS, HEAD" unless $method =~ /^(get|patch|put|post|delete|options|head)$/i;
     croak "REST::Client exception: Must provide a url to $method" unless $url;
     croak "REST::Client exception: headers must be presented as a hashref" if $headers && ref $headers ne 'HASH';
 
