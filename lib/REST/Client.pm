@@ -445,6 +445,17 @@ sub responseHeader {
     return $self->{_res}->header($header);
 }
 
+=head3 responseObject
+
+Return a L<HTTP::Response> response object
+
+=cut
+
+sub responseObject {
+    my $self = shift;
+    return $self->{_res};
+}
+
 =head3 responseXpath ()
 
 A convienience wrapper that returns a L<XML::LibXML> xpath context for the body content.  Assumes the content is XML.

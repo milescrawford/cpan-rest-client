@@ -3,6 +3,7 @@ use warnings;
 
 unshift @INC, "../lib";
 
+use Scalar::Util qw/blessed/;
 use Test::More;
 
 # Check testing prereqs
@@ -118,6 +119,8 @@ SKIP: {
 
         ok(scalar($client->responseHeaders()), 'Header names available');
         ok( $client->responseHeader('Client-Response-Num'), 'Can pull a header');
+
+        is( blessed($client->responseObject()), 'HTTP::Response', 'HTTP::Response available');
 
         my $fn = "content_file_test";
         $client->setContentFile( $fn );
