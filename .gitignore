@@ -1,0 +1,16 @@
+.settings
+.project
+
+/blib
+/_build
+/.build
+/pod2htmd.tmp
+/pod2htmi.tmp
+/REST-Client-*
+/cover_db
+/dzil.spec
+
+*~
+nytprof*
+*.patch
+*.pm.bak

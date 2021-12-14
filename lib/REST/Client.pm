@@ -1,8 +1,7 @@
 package REST::Client;
+#ABSTRACT: A simple client for interacting with RESTful http/https resources
 
-=head1 NAME
-
-REST::Client - A simple client for interacting with RESTful http/https resources
+our $VERSION = '273';
 
 =head1 SYNOPSIS
 
@@ -80,8 +79,6 @@ use 5.008_000;
 
 use constant TRUE => 1;
 use constant FALSE => 0;
-
-our ($VERSION) = ('$Rev: 273 $' =~ /(\d+)/);
 
 use URI;
 use LWP::UserAgent;
@@ -543,14 +540,3 @@ sub _buildAccessors {
 
 Caching, content-type negotiation, readable handles for body content.
 
-=head1 AUTHOR
-
-Miles Crawford, E<lt>mcrawfor@cpan.orgE<gt>
-
-=head1 COPYRIGHT
-
-Copyright 2008 - 2010 by Miles Crawford
-
-This program is free software; you can redistribute it and/or modify it under the same terms as Perl itself.
-
-=cut
