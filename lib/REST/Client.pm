@@ -1,7 +1,7 @@
 package REST::Client;
 #ABSTRACT: A simple client for interacting with RESTful http/https resources
 
-our $VERSION = '273';
+our $VERSION = '280';
 
 =head1 SYNOPSIS
 
