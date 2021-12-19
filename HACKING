@@ -1,0 +1,35 @@
+
+===
+
+Running tests:
+
+* the fast way:
+  prove -lr t
+
+* the slow way:
+  dzil test
+
+===
+
+Making a release:
+
+* You need Dist::Zilla installed.
+* The git tree should be clean and on master. You may, e.g., 
+  want to run "dzil clean".
+
+* Edit lib/REST/Client.pm and increase the version number.
+  Commit this with git.
+
+* Edit Changes and add an entry for the new release.
+  Don't commit it yet.
+
+* Run "dzil release". This performs all the following steps:
+  - builds a distribution tarball
+  - runs the tests in its directory
+  - asks for confirmation
+  - uploads the tarball to CPAN
+  - commits Changes
+  - makes a git tag with the version number
+  - git pushes master and its tags to origin (github)
+
+===
