@@ -23,8 +23,9 @@ SKIP: {
 
     use_ok('REST::Client');
 
-    my $port = 7657;
-    my $pid  = REST::Client::TestServer->new($port)->background();
+    my $server = REST::Client::TestServer->new(0);
+    my $port   = $server->port;
+    my $pid    = $server->background();
 
     eval {
 
