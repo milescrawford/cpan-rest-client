@@ -270,15 +270,13 @@ sub POST {
 
 =head3 DELETE ( $url, [%$headers] )
 
-Preform an HTTP DELETE to the resource specified. Takes an optional hashref of custom request headers.
+Preform an HTTP DELETE to the resource specified. Takes an optional body content and  hashref of custom request headers.
 
 =cut
 
 sub DELETE {
     my $self = shift;
-    my $url = shift;
-    my $headers = shift;
-    return $self->request('DELETE', $url, undef, $headers);
+    return $self->request('DELETE', @_);
 }
 
 =head3 OPTIONS ( $url, [%$headers] )
