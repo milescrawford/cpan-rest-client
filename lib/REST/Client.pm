@@ -81,7 +81,7 @@ use constant TRUE => 1;
 use constant FALSE => 0;
 
 use URI;
-use LWP::UserAgent;
+use LWP::UserAgent 5.800;    # for default_headers
 use Carp qw(croak carp);
 
 =head2 Construction and setup
@@ -184,13 +184,8 @@ Add a custom header to any requests made by this client.
 =cut
 
 sub addHeader {
-    my $self = shift;
-    my $header = shift;
-    my $value = shift;
-    
-    my $headers = $self->{'_headers'} || {};
-    $headers->{$header} = $value;
-    $self->{'_headers'} = $headers;
+    my ( $self, $header, $value ) = @_;
+    $self->getUseragent->default_header( $header => $value );
     return;
 }
 
@@ -345,11 +340,6 @@ sub request {
         $req->header('Content-Length', length($content));
     }else{
         $req->header('Content-Length', 0);
-    }
-
-    my $custom_headers = $self->{'_headers'} || {};
-    for my $header (keys %$custom_headers){
-        $req->header($header, $custom_headers->{$header});
     }
 
     for my $header (keys %$headers){
